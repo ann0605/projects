@@ -8,6 +8,10 @@
 </head>
 <body>
 <form action = "upload" method = "POST" enctype = "multipart/form-data" modelAttribute ="model">
+<div align="right">
+
+Today: ${today}
+</div>
 <table>
 	<tr>
 <!-- 		<td>Your Video:<form:input path ="videoTitle"/></td> -->

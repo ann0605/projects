@@ -1,5 +1,6 @@
 package com.mycompany.myapp;
 
+import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -29,9 +30,11 @@ public class HomeController {
 	
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public ModelAndView goUpload(@ModelAttribute("model") VideoUploadModel videoModel, BindingResult br){
-		ModelAndView mv = new ModelAndView("uploadvideo");
+		ModelAndView mav = new ModelAndView("uploadvideo");
 		
-		return mv;
+		mav.addObject("today", new Date());
+		
+		return mav;
 	}
 	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
