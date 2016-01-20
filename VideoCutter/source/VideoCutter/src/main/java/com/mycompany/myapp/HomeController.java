@@ -25,41 +25,43 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		model.addAttribute("model", new VideoUploadModel());
-		return "home";
+		return "uploadvideo";
 	}
 	
+	/**
+	 * Displays upload screen.
+	 * @return Model that contains "today"
+	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
-	public ModelAndView goUpload(@ModelAttribute("model") VideoUploadModel videoModel, BindingResult br){
+	public ModelAndView goUpload() {
 		ModelAndView mav = new ModelAndView("uploadvideo");
-		
+
 		mav.addObject("today", new Date());
-		
+
 		return mav;
 	}
 	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public ModelAndView uploadHandler(@ModelAttribute("model") VideoUploadModel videoModel, BindingResult br){
+	public ModelAndView uploadHandler(@ModelAttribute("model") VideoUploadModel videoModel, BindingResult br) {
 		ModelAndView mv = new ModelAndView("uploadvideo");
 		logger.debug("Processing uploading...");
-		
-		if(br.hasErrors()){
+
+		if (br.hasErrors()) {
 			logger.error("Binding errors: " + br.getErrorCount());
-			for (ObjectError objError : br.getAllErrors()){
+			for (ObjectError objError : br.getAllErrors()) {
 				logger.error("Error message:" + objError.getDefaultMessage());
-				}
+			}
 			mv.addObject("nError", br.getErrorCount());
 		} else {
 			logger.debug("Video title: " + videoModel.getVideoTitle());
 			logger.debug("Video Size: " + videoModel.getVideoFile().getSize());
 			mv.addObject("videoTitle", videoModel.getVideoTitle());
 			mv.addObject("videoSize", videoModel.getVideoFile().getSize());
-			mv.addObject("originalFileName",videoModel.getVideoFile().getOriginalFilename());
+			mv.addObject("originalFileName", videoModel.getVideoFile().getOriginalFilename());
 		}
-		
+
 		return mv;
-		
-		
-		
+
 	}
 }
 
