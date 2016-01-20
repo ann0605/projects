@@ -8,6 +8,7 @@ import org.opencv.highgui.VideoCapture;
 import org.opencv.video.Video;
 
 import com.mycompany.myapp.VideoUploadModel;
+import com.mycompany.myapp.videocutter.PicOutputModel;
 
 
 
@@ -17,7 +18,7 @@ import com.mycompany.myapp.VideoUploadModel;
 public class VideoCutterUtil {
 	
 	public ArrayList<Mat> split(VideoUploadModel videofile) {
-		VideoCapture capture = new VideoCapture();
+		VideoCapture capture = new VideoCapture(videofile.getVideoFile().getOriginalFilename());
 		// System.out.printf("FPS:%d", fps);
 		Mat frame = null;
 		int frameNumber = 0;
@@ -33,13 +34,17 @@ public class VideoCutterUtil {
 	}
 	
 	public void save(ArrayList<Mat> inArray){
-		ArrayList<Mat> array = new ArrayList<Mat>();
+		
 		String path = "resources/images";
 		for (int i = 0; i< inArray.size(); i++){
-			Mat img = array.get(i);
+			PicOutputModel pic = new PicOutputModel();
+			Mat img = inArray.get(i);
 			String fileName = "frame" + Integer.toString(i); //not being stored anywhere
 			path = path + "/" + fileName;
+			pic.setPath(path);
+			pic.setFileName(fileName);
 			Highgui.imwrite(fileName, img);
+			
 		}
 	}
 
