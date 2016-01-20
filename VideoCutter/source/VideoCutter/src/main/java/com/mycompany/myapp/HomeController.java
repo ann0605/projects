@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,11 @@ public class HomeController {
 		return mav;
 	}
 
+	/**
+	 * Processes user's upload
+	 * 
+	 * @return Model that contains video title, original file name and video size
+	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, params = "upload")
 	public ModelAndView uploadHandler(@ModelAttribute("model") VideoUploadModel videoModel, BindingResult br) {
 		ModelAndView mv = new ModelAndView("uploadvideo");
@@ -74,14 +80,23 @@ public class HomeController {
 
 	}
 
+	/**
+	 * Displays viewframes screen
+	 * @return Model that will contain frames
+	 */
 	@RequestMapping(value = "/viewframes", method = RequestMethod.GET)
 	public ModelAndView goViewFrames() {
 		ModelAndView mav = new ModelAndView("viewframes");
 		return mav;
 	}
 
+	/**
+	 * Processes video and outputs pictures on the viewframes screen
+	 * @return Model with frames
+	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, params = "viewframes")
 	public ModelAndView viewFrames(@ModelAttribute("model") VideoUploadModel videoModel, BindingResult br) {
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		ModelAndView mav = new ModelAndView("viewframes");
 		if (br.hasErrors()) {
 			logger.error("Binding errors: " + br.getErrorCount());

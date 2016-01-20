@@ -2,6 +2,7 @@ package com.mycompany.myapp.videocutter.util;
 
 import java.util.ArrayList;
 
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
@@ -19,7 +20,8 @@ public class VideoCutterUtil {
 	
 	public ArrayList<Mat> split(VideoUploadModel videofile) {
 		VideoCapture capture = new VideoCapture(videofile.getVideoFile().getOriginalFilename());
-		// System.out.printf("FPS:%d", fps);
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
 		Mat frame = null;
 		int frameNumber = 0;
 		String fileName = "";
