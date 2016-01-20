@@ -53,10 +53,14 @@ public class HomeController {
 			}
 			mv.addObject("nError", br.getErrorCount());
 		} else {
-			logger.debug("Video title: " + videoModel.getVideoTitle());
-			logger.debug("Video Size: " + videoModel.getVideoFile().getSize());
+			if (videoModel != null) {
+				logger.debug("Video title: " + videoModel.getVideoTitle());
+				if (videoModel.getVideoFile() != null) {
+					logger.debug("Video Size: " + videoModel.getVideoFile().getSize());
+				}
+			}
 			mv.addObject("videoTitle", videoModel.getVideoTitle());
-			mv.addObject("videoSize", videoModel.getVideoFile().getSize());
+			mv.addObject("videoSize", videoModel.getVideoFile().getSize() + " bytes");
 			mv.addObject("originalFileName", videoModel.getVideoFile().getOriginalFilename());
 		}
 

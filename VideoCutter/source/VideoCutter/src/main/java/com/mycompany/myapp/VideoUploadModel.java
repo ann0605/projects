@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.web.multipart.MultipartFile;
 
 public class VideoUploadModel implements Serializable {
-	//private int size;
+
 	private String videoTitle;
 	private MultipartFile videoFile;
 
