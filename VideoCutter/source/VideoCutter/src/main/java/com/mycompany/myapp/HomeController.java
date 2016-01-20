@@ -27,6 +27,13 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+	public ModelAndView goUpload(@ModelAttribute("model") VideoUploadModel videoModel, BindingResult br){
+		ModelAndView mv = new ModelAndView("uploadvideo");
+		
+		return mv;
+	}
+	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public ModelAndView uploadHandler(@ModelAttribute("model") VideoUploadModel videoModel, BindingResult br){
 		ModelAndView mv = new ModelAndView("uploadvideo");
